@@ -1,0 +1,8 @@
+# My AI - Python dependencies
+# Pin exact versions so this project can be rebuilt reliably.
+
+fastapi==0.163.1
+uvicorn[standard]==0.54.0
+openai==3.52.0
+python-dotenv==1.2.4
+httpx==0.28.1
