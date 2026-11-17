@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="My AI - a friendly, helpful AI assistant." />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)" />
+    <title>My AI - Your AI assistant</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Dark overlay shown behind the sidebar on phones -->
+      <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+      <!-- ====================== SIDEBAR ====================== -->
+      <aside class="sidebar" id="sidebar" aria-label="Conversation sidebar">
+        <div class="sidebar-top">
+          <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
+                <path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">My AI</span>
+              <span class="brand-tagline">Your personal assistant</span>
+            </div>
+          </div>
+
+          <button class="icon-btn sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+
+          <button class="new-chat-btn" id="new-chat-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+            <span>New chat</span>
+          </button>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Recent conversations</p>
+          <div class="conversation-list" id="conversation-list">
+            <p class="empty-history" id="empty-history">No conversations yet.<br />Start a new chat above.</p>
+          </div>
+        </div>
+
+        <div class="sidebar-bottom">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+            <span class="theme-icon" id="theme-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.8A8.5 8.5 0 1111.2 3a6.6 6.6 0 009.8 9.8z" />
+              </svg>
+            </span>
+            <span id="theme-label">Dark mode</span>
+          </button>
+          <p class="sidebar-note">
+            My AI is an independent project. It is not affiliated with or endorsed by OpenAI.
+          </p>
+        </div>
+      </aside>
+
+      <!-- ====================== MAIN AREA ====================== -->
+      <main class="main-area">
+        <header class="topbar">
+          <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open sidebar" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+
+          <div class="topbar-title">
+            <h1 id="conversation-title">New conversation</h1>
+            <p class="status" id="status-text">Preview mode - backend not connected yet</p>
+          </div>
+
+          <button class="ghost-btn" id="clear-chat-btn" title="Clear the current conversation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13" />
+            </svg>
+            <span>Clear</span>
+          </button>
+        </header>
+
+        <section class="chat-area" id="chat-area" aria-label="Chat messages">
+          <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions">
+            <!-- Empty state: shown until the first message -->
+            <div class="empty-state" id="empty-state">
+              <div class="empty-logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
+                  <path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z" />
+                </svg>
+              </div>
+              <h2>How can I help you today?</h2>
+              <p>Ask a question, explore an idea, or get help with a problem.</p>
+              <div class="suggestions" id="suggestions">
+                <button class="suggestion" data-prompt="Explain a complex idea in simple terms">Explain something simply</button>
+                <button class="suggestion" data-prompt="Help me plan my day">Help me plan my day</button>
+                <button class="suggestion" data-prompt="Give me a beginner Python tip">Teach me Python</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="composer-wrap">
+          <form class="composer" id="chat-form">
+            <label class="sr-only" for="message-input">Message My AI</label>
+            <textarea
+              id="message-input"
+              rows="1"
+              maxlength="8000"
+              placeholder="Message My AI..."
+              autocomplete="off"
+              enterkeyhint="send"
+            ></textarea>
+            <button class="send-btn" id="send-btn" type="submit" aria-label="Send message" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </form>
+          <p class="disclaimer">My AI can make mistakes. Please check important information.</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Small pop-up messages for actions like "Copied" -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
