@@ -180,7 +180,7 @@ git push -u origin main
 4. Render reads `render.yaml` and asks you to fill in `OPENAI_API_KEY`.
 5. Paste your **Groq key** there. The other settings are filled in automatically.
 6. Click **Apply** and wait for the build to finish.
-7. Open the URL Render gives you, e.g. `https://my-ai-model.onrender.com`.
+7. Open the URL Render gives you, e.g. `https://my-ai.onrender.com` (the name comes from `render.yaml`).
 
 ### Verify the deployment
 - `https://your-app.onrender.com/api/health` → `{"status":"ok",...}`
